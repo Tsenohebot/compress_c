@@ -20,3 +20,6 @@ $(TARGET_PATH): $(SRC)
 # Clean up by removing the executable from the build directory
 clean:
 	rm -f $(TARGET_PATH)
+# Nuke build folder - Only do this to purge contamination or incorrectly built binary
+nuke:
+	rm -rf $(BUILD_DIR)
