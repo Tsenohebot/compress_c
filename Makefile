@@ -1,8 +1,26 @@
-# Variables
-CC = gcc
+# Detect system architecture
+ARCH := $(shell uname -m)
+
+# Set default compilers for ARM and x86
+CC_x86 := gcc
+CC_arm := arm-linux-gnueabi-gcc
+CC_arm32 := arm-linux-gnueabi-gcc
+
+
+# Select compiler based on architecture
+ifeq ($(ARCH),x86_64)
+    CC := $(CC_x86)
+else ifeq ($(ARCH),aarch64)
+    CC := $(CC_arm)
+else ifeq ($(ARCH),armv7l)
+    CC := $(CC_arm32)
+else
+    $(error Unsupported architecture: $(ARCH))
+endif
+
 CFLAGS = -Wall -g   # Wall enables all warnings, and -g adds debugging information
 TARGET = HUFFMAN
-SRC = HUFFMAN.c
+SRC = src/HUFFMAN.c
 BUILD_DIR = build
 TARGET_PATH = $(BUILD_DIR)/$(TARGET)
 
